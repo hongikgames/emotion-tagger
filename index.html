@@ -1,0 +1,211 @@
+<!DOCTYPE HTML>
+
+<html lang = "ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" type="text/css" href="stylesheet.css">
+        <script type="text/javascript" src="main.js"></script>
+        <title>taGGer</title>
+
+        <!--Bootstrap-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <!--File Input Modal-->
+        <input id="local-file-input" type="file">
+        <div id="file-input-modal" class="modal fade" role="dialog" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Load file</h3>
+                        <button class="close" type="button" data-dismiss="modal"><span>&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <h5>Upload local file</h5>
+                            </div>
+                            <div class="row">
+                                <div class="input-group">
+                                    <input id="local-file-name" class="form-control" type="text" readonly>
+                                    <div class="input-group-append">
+                                        <button id="local-file-browse-button" class="btn btn-dark" type="button">Browse</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                        <button id="local-file-upload-button" class="btn btn-primary" type="button" data-dismiss="modal">Upload</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Save Dataset Modal-->
+        <a id="save-file-download"></a>
+        <div id="save-dataset-modal" class="modal fade" role="dialog" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Save dataset</h3>
+                        <button class="close" type="button" data-dismiss="modal"><span>&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <h5>File name</h5>
+                            </div>
+                            <div class="row">
+                                <input id="save-file-name" class="form-control" type="text">
+                            </div>
+                            <div class="row">
+                                <p>Dataset will be save as csv file.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                        <button id="save-dataset-button" class="btn btn-primary" type="button" data-dismiss="modal">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Edit Tag Element Modal-->
+        <div id="edit-tag-element-modal" class="modal fade" role="dialog" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Edit Tag Element</h3>
+                        <button class="close" type="button" data-dismiss="modal"><span>&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row mb-2">
+                                <h5>Element name</h5>
+                            </div>
+                            <div class="row mb-2">
+                                <input id="tag-element-name-edit" class="form-control" type="text">
+                            </div>
+                            <div class="row mb-2 align-items-center">
+                                <div class="col-auto mr-1">
+                                    <h5>Values</h5>
+                                </div>
+                                <div class="col-auto">
+                                    <button id="add-tag-element-value-button" class="btn btn-primary" type="button">Add</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div id="tag-element-value-edit" class="form-row">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                        <button id="edit-tag-element-button" class="btn btn-primary" type="button" data-dismiss="modal">Apply</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Menu-->
+        <nav class="navbar navbar-expand navbar-dark bg-dark">
+            <ul class="navbar-nav">
+                <span class="navbar-brand">taGGer</span>
+                <!--Dataset Menu-->
+                <li class="nav-item dropdown mr-3">
+                    <span class="navbar-text dropdown-toggle" role="button" data-toggle="dropdown">Dataset</span>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" type="button">New</button>
+                        <button id="save-dataset-modal-button" class="dropdown-item" type="button" data-toggle="modal"
+                            data-target="#save-dataset-modal">Save</button>
+                        <button id="load-dataset-modal-button" class="dropdown-item" type="button" data-toggle="modal"
+                            data-target="#file-input-modal">Load</button>
+                    </div>
+                </li>
+
+                <!--File Menu-->
+                <li class="nav-item dropdown mr-3">
+                    <span class="navbar-text dropdown-toggle" role="button" data-toggle="dropdown">File</span>
+                    <div class="dropdown-menu">
+                        <!--Video-->
+                        <button id="video-file-modal-button" class="dropdown-item" data-toggle="modal"
+                            data-target="#file-input-modal">Video</button>
+                        <div class="dropdown-divider"></div>
+                        <!--Subtitles-->
+                        <button id="subtitles-file-modal-button" class="dropdown-item" data-toggle="modal"
+                            data-target="#file-input-modal">Subtitles</button>
+                    </div>
+                </li>
+
+                <!--Statistics Menu-->
+                <li class="nav-item mr-3 disabled"><span class="navbar-text">Statistics</span></li>
+            </ul>
+        </nav>
+
+        <!--Contents-->
+        <div class="containter-fluid">
+            <div class="row p-2 no-gutters">
+                <div class="col">
+                    <div class="row mb-1 no-gutters">
+                        <!--Video Player-->
+                        <div class="col-12 col-lg-6">
+                            <video id="video-player" controls>
+                            </video>
+                        </div>
+
+                        <!--Tag Elements-->
+                        <div class="col">
+                            <div id="tag-elements"></div>
+
+                            <div class="row no-gutters">
+                                <div class="col">
+                                    <button id="add-tag-element-button" class="btn btn-block btn-outline-dark" type="button">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row no-gutters">
+                        <div class="col-auto mr-1">
+                            <button id="previous-row-button" class="btn btn-secondary" type="button">Previous</button>
+                        </div>
+                        <div class="col-auto mr-1">
+                            <div id="focus-row" class="form-inline">
+                            </div>
+                        </div>
+                        <div class="col-auto mr-1">
+                            <button id="next-row-button" class="btn btn-secondary" type="button">Next</button>
+                        </div>
+                        <div class="col-auto mr-1">
+                            <button id="tag-mode-stack-button" class="btn btn-secondary" type="button">Stack</button>
+                        </div>
+                        <div class="col-auto mr-1">
+                            <button id="tag-mode-auto-button" class="btn btn-secondary" type="button">Auto</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Dataset Table-->
+            <div class="row no-gutters">
+                <div class="col">
+                    <table id="dataset-table" class="table table-bordered table-hover">
+                        <thead class="thead-dark sticky-top">
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
